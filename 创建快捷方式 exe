@@ -1,0 +1,32 @@
+以下步骤调用WSH对象在客户端机器创建快捷方式
+
+1 在项目中添加对Windows Script Host Object Mode的引用,这个组件在添加引用对话框的COM类别中
+
+2 在CS文件中添加对该对象的引用，如下代码：using IWshRuntimeLibrary
+
+3 下面这个函数演示使用WSH对象添加快捷方式到指定的位置：
+
+public bool AddShortCut(Environment.SpecialFolder folderType,string targetDir,string linkName)
+{
+       try
+       {
+             string folder = Environment.GetFolderPath(folderType) + "\\" + linkName;
+             // Create a Windows Script Host Shell class
+             IWshShell_Class shell = new IWshShell_ClassClass();
+            // Define the shortcut file
+            IWshShortcut_Class shortcut = shell.CreateShortcut(folder + ".lnk") as IWshShortcut_Class;
+            shortcut.TargetPath = targetDir;
+            shortcut.Save();   
+            return true; 
+       }
+       catch (Exception ex)
+       {
+               return false;
+        }     
+}
+
+例如
+
+AddShortCut(Environment.SpecialFolder.Programs,http://locahost/MSPortal,"企业门户");
+
+是否可以将以上代码段用于WebForm程序中还需要测试，目前是在开发机器本机IE调用可以正常运行，但是对于其他机器客户端访问就不能生成快捷方式
