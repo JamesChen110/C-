@@ -1,0 +1,67 @@
+首先添加以下引用：COM下Windows Script Host Object Model，然后可以通过以下方法创建快捷方式。
+
+using System.Runtime.InteropServices;
+
+using IWshRuntimeLibrary;
+
+ 
+
+string app = "http://localhost/TrainManage/Default.aspx";
+
+string location1 = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Favorites) + "\\培训教学教务管理系统.url";
+
+              string location2 = System.Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory) + "\\培训教学教务管理系统.url";
+
+              string location3 = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Programs) + "\\培训教学教务管理系统.url";
+
+ 
+
+              try
+
+              {
+
+                   // Create a Windows Script Host Shell class
+
+                   IWshShell_Class shell = new IWshShell_ClassClass();
+
+                   // Define the shortcut file
+
+                   IWshURLShortcut shortcut = shell.CreateShortcut(location1) as IWshURLShortcut;
+
+                   shortcut.TargetPath = app;
+
+                   // Save it
+
+                   shortcut.Save();
+
+ 
+
+                   shortcut = shell.CreateShortcut(location2) as IWshURLShortcut;                            shortcut.TargetPath = app;
+
+                   // Save it
+
+                   shortcut.Save();
+
+ 
+
+                   shortcut = shell.CreateShortcut(location3) as IWshURLShortcut;
+
+                   shortcut.TargetPath = app;
+
+                   // Save it
+
+                   shortcut.Save();
+
+                  
+
+              }
+
+              catch(COMException ex)
+
+              {
+
+                   Console.WriteLine(ex.Message);
+                   
+                   
+                   
+                   
