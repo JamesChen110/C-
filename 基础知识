@@ -1,0 +1,11 @@
+获取windows credential 账号密码
+（nuget 安装 CredentialManagement）
+using (var cred = new Credential())
+            {
+                cred.Target = "GLS purchase";
+                cred.Load();
+
+                Username = cred.Username;
+
+                Password = cred.Password;
+            }
